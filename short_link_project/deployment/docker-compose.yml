@@ -1,0 +1,24 @@
+version: "3.8"
+
+volumes:
+  ShortLinkVolumeDB:
+
+services:
+
+  redis_cache:
+    image: "redis:latest"
+    ports:
+      - 6379:6379
+  
+  postgres_db:
+    image: "postgres:alpine3.14"
+    ports:
+      - 5432:5432
+    restart: always
+    environment:
+      POSTGRES_DB: short_link_db
+      POSTGRES_USER: mostafa_mvm
+      POSTGRES_PASSWORD: 12345m678910
+      PGDATA: /var/lib/postgresql/data
+    volumes:
+      - ShortLinkVolumeDB:/var/lib/postgresql/data

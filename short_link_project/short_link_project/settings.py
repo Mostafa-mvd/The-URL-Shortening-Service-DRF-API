@@ -75,8 +75,12 @@ WSGI_APPLICATION = 'short_link_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'short_link_db',
+        'USER': 'mostafa_mvm',
+        'PASSWORD': "12345m678910",
+        'HOST': 'localhost',
+        'PORT': 5432,
     }
 }
 
