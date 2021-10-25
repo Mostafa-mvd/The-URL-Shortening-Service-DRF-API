@@ -1,6 +1,10 @@
 from django.core import validators
 from django.db import models
 from . import utils as shortener_links_utils
+from django.db.models.functions import Length
+
+
+models.CharField.register_lookup(Length)
 
 
 class ShortLinkCreator(models.Model):
@@ -14,7 +18,8 @@ class ShortLinkCreator(models.Model):
         ]
     )
 
-    shorten_url = models.CharField(
+    shorten_link = models.CharField(
+        default=shortener_links_utils.create_shorten_link,
         unique=True,
         max_length=18,
         blank=True
@@ -40,5 +45,17 @@ class ShortLinkCreator(models.Model):
         verbose_name="Private URL?"
     )
 
+    class Meta:
+        constraints = [
+            models.CheckConstraint(
+                check=models.Q(shorten_link__length__gte=8),
+                name="Check constraints for shorten_link field that must be gte 8",
+            )
+        ]
+
+        ordering = [
+            "-created_time"
+        ]
+
     def __str__(self):
-        return "{} -> {}".format(self.original_url, self.shorten_url)
+        return "{} -> {}".format(self.original_url, self.shorten_link)
