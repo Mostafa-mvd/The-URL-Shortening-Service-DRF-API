@@ -23,7 +23,7 @@ urlpatterns = [
         admin.site.urls
     ),
     path(
-        'shorten_link/',
+        "",
         include('short_link_app.urls',
                 namespace="short_link_app"
         ),

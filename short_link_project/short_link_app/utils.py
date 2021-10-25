@@ -1,9 +1,12 @@
-from random import randint, choices
 from django.utils.timezone import now
-from datetime import timedelta
 from django.core.exceptions import ValidationError
-import string
+
+from datetime import timedelta
 from datetime import datetime
+
+from random import randint, choices
+import string
+
 from . import models as shorten_link_model
 
 
@@ -39,3 +42,8 @@ def format_string_to_readable_datetime(datetime_str):
     datetime_obj = datetime.fromisoformat(datetime_str)
     formated_datetime = datetime_obj.strftime("%Y-%m-%d , %H:%M:%S")
     return formated_datetime
+
+
+def add_to_redirect_items_field(shorten_link_obj):
+    shorten_link_obj.redirected_times += 1
+    shorten_link_obj.save()

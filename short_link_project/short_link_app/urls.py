@@ -7,8 +7,13 @@ app_name = "shorten_app"
 
 urlpatterns = [
     path(
-        route="",
+        route="shorten_link/",
         view=views.CreateShortenLink.as_view(),
-        name="shorten"
+        name="create_shorten_link"
+    ),
+    path(
+        route='<str:shorten_link>/',
+        view=views.redirect_to_original_url,
+        name="redirect_shorten_url"
     ),
 ]
