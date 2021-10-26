@@ -1,5 +1,7 @@
+from django.urls.exceptions import NoReverseMatch
 from django.utils.timezone import now
 from django.core.exceptions import ValidationError
+from django.urls import reverse
 
 from datetime import timedelta
 from datetime import datetime
@@ -45,5 +47,19 @@ def format_string_to_readable_datetime(datetime_str):
 
 
 def add_to_redirect_items_field(shorten_link_obj):
+    """add to how many times that user use shortened links"""
+
     shorten_link_obj.redirected_times += 1
     shorten_link_obj.save()
+
+
+def concatenate_domain_with_path(request, path_pattern_of_view):
+    try:
+        path = reverse(path_pattern_of_view)
+    except NoReverseMatch:
+        path = "/" + path_pattern_of_view
+
+    main_domain = request.build_absolute_uri('/')[:-1]
+    url = "{}{}".format(main_domain, path)
+    
+    return url
