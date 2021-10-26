@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls import url
+from short_link_app import views
 
 
 urlpatterns = [
@@ -23,9 +25,28 @@ urlpatterns = [
         admin.site.urls
     ),
     path(
-        "",
+        "api/v1/shortening_link/",
         include('short_link_app.urls',
-                namespace="short_link_app"
+                namespace="shortening_link_urls"
         ),
+    ),
+    path(
+        "api/v1/users/",
+        include('users.urls',
+                namespace="users_urls"
+        ),
+    ),
+    url(
+        r'^(?P<shorten_link>\w{8,18})/',
+        include([
+            url(
+                regex=r'^$',
+                view=views.redirect_to_original_url,
+                name="redirect_to_public_shorten_url"),
+
+            url(regex=r'^(?P<otp_code>\d+)/$',
+                view=views.redirect_to_original_url,
+                name="redirect_to_private_shorten_url"),
+        ])
     ),
 ]
