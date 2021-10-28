@@ -14,6 +14,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='shortlinkcreator',
             name='shorten_link',
-            field=models.CharField(blank=True, default=short_link_app.utils.create_shorten_link, max_length=18, unique=True),
+            field=models.CharField(
+                blank=True, default=short_link_app.defaults.generate_token, max_length=18, unique=True),
         ),
     ]

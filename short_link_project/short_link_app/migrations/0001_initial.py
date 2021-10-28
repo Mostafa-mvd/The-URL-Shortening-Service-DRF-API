@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
                 ('shorted_url', models.URLField(blank=True, max_length=15, unique=True)),
                 ('created_time', models.DateTimeField(auto_now_add=True)),
                 ('expiration_time', models.DateTimeField(
-                    default=short_link_app.models.shortener_links_utils.expire_at)),
+                    default=short_link_app.models.shortener_defaults_fields.expire_at)),
                 ('times_redirected', models.PositiveIntegerField(default=0)),
             ],
         ),

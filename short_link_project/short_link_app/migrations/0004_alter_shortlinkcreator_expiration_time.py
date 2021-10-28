@@ -14,6 +14,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='shortlinkcreator',
             name='expiration_time',
-            field=models.DateTimeField(default=short_link_app.utils.expire_at, validators=[short_link_app.utils.validate_expire_time]),
+            field=models.DateTimeField(default=short_link_app.defaults.expire_at, validators=[
+                                       short_link_app.validators.validate_expire_time]),
         ),
     ]
