@@ -1,28 +1,30 @@
-from django.core import validators
+from django.core import validators as django_validators
 from django.db import models
-from . import utils as shortener_links_utils
-from django.db.models.functions import Length
+
+from . import validators as shortener_links_validators
+from . import defaults as shortener_defaults_fields
 
 
-models.CharField.register_lookup(Length)
-
-
-class ShortLinkCreator(models.Model):
+class ShortLink(models.Model):
 
     original_url = models.URLField(
         validators=[
-            validators.URLValidator([
+            django_validators.URLValidator([
                 'http', 
                 'https',
             ]),
-        ]
+        ],
+        max_length=1024
     )
 
-    shorten_link = models.CharField(
-        default=shortener_links_utils.create_shorten_link,
+    token = models.CharField(
+        default=shortener_defaults_fields.generate_token,
         unique=True,
         max_length=18,
-        blank=True
+        validators=[
+            django_validators.RegexValidator(r'[\w-]{8,18}'),
+            shortener_links_validators.check_token_min_length
+        ]
     )
 
     created_time = models.DateTimeField(
@@ -30,32 +32,37 @@ class ShortLinkCreator(models.Model):
     )
     
     expiration_time = models.DateTimeField(
-        default=shortener_links_utils.expire_at,
+        default=shortener_defaults_fields.expire_at,
         validators=[
-            shortener_links_utils.validate_expire_time,
+            shortener_links_validators.validate_expire_time,
         ]
     )
 
-    redirected_times = models.PositiveIntegerField(
+    times_of_redirected = models.PositiveIntegerField(
         default=0
     )
 
-    is_shorten_url_private = models.BooleanField(
+    is_private = models.BooleanField(
         default=False,
         verbose_name="Private URL?"
     )
 
     class Meta:
-        constraints = [
-            models.CheckConstraint(
-                check=models.Q(shorten_link__length__gte=8),
-                name="Check constraints for shorten_link field that must be gte 8",
-            )
-        ]
-
+        verbose_name = 'ShortLink'
+        verbose_name_plural = 'ShortLinks'
         ordering = [
             "-created_time"
         ]
 
     def __str__(self):
-        return "{} -> {}".format(self.original_url, self.shorten_link)
+        return "{} -> {}".format(self.original_url, self.token)
+    
+    def get_formated_created_time_str(self):
+        return self.created_time.strftime('%Y-%m-%d, %H:%M:%S')
+    
+    def get_formated_expiration_time_str(self):
+        return self.expiration_time.strftime('%Y-%m-%d, %H:%M:%S')
+    
+    def add_to_times_of_redirected_field(self):
+        self.times_of_redirected += 1
+        self.save()
