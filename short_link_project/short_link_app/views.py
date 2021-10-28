@@ -13,24 +13,16 @@ from . import (utils as shortening_link_utils,
 
 
 class CreateShortenLink(generics.CreateAPIView):
-    serializer_class = shortening_link_serializers.ShortenLinkSerializer
-    model = shortening_Link_models.ShortLinkCreator
+    serializer_class = shortening_link_serializers.ShorteningLinkSerializer
+    model = shortening_Link_models.ShortLink
 
-    def render_json_result(self, response_data):
-        shorten_link = response_data["result_link"]
-        expiration_time = response_data["expiration_time"]
-        is_url_private = response_data["is_shorten_url_private"]
-
-        shortened_url = shortening_link_utils.concatenate_domain_with_path(
-            self.request, shorten_link)
-
-        formated_expiration_time = shortening_link_utils.format_string_to_readable_datetime(
-            expiration_time)
+    def represent_result(self, response_data):
 
         return Response(data={
-            "shorten_url": shortened_url,
-            "expiration_time": formated_expiration_time,
-            "is_url_private": is_url_private
+            "short_url": response_data["short_url"],
+            'created_time': response_data['created_time'],
+            "expiration_time": response_data['expiration_time'],
+            "private": response_data["is_private"]
             },
             status=status.HTTP_200_OK
         )
@@ -55,19 +47,18 @@ class CreateShortenLink(generics.CreateAPIView):
 
         response_data = super().post(request, *args, **kwargs).data
 
-        return self.render_json_result(response_data)
+        return self.represent_result(response_data)
 
 
 @api_view(('GET',))
 @renderer_classes((JSONRenderer,))
-def redirect_to_original_url(request, shorten_link, otp_code=None):
+def redirect_to_original_url(request, token, otp_code=None):
 
-    shorten_link_obj = get_object_or_404(
-        klass=shortening_Link_models.ShortLinkCreator,
-        shorten_link=shorten_link
-    )
+    short_link = get_object_or_404(
+        klass=shortening_Link_models.ShortLink,
+        token=token)
 
-    if shorten_link_obj.is_shorten_url_private:
+    if short_link.is_private:
         if not request.user.is_authenticated:
 
             login_url = shortening_link_utils.concatenate_domain_with_path(
@@ -76,14 +67,13 @@ def redirect_to_original_url(request, shorten_link, otp_code=None):
             return Response(data={
                 "OTP ERROR": "Your url is private , you have to login first",
                 "login_url": login_url
-                }, content_type="application/json"
-            )
+                }, content_type="application/json")
+
         if otp_code:
-            if not users_utils.is_otp_code_valid(otp_code, request.user):
+            if not users_utils.is_totp_code_valid(otp_code, request.user):
                 return Response(data={
-                    "OTP ERROR": "otp code is not valid"
-                    }, content_type="application/json"
-                )
+                    "OTP ERROR": "otp code is not valid, after 120 seconds try again"
+                    }, content_type="application/json")
         else:
             otp_generator_url = shortening_link_utils.concatenate_domain_with_path(
                 request, "users_urls:generate_otp_code")
@@ -91,11 +81,8 @@ def redirect_to_original_url(request, shorten_link, otp_code=None):
             return Response(data={
                 "OTP ERROR": "Your url is private , set access otp code first",
                 "otp_generator": otp_generator_url
-                }, content_type="application/json"
-            )
+                }, content_type="application/json")
 
-    shortening_link_utils.add_to_redirect_items_field(
-        shorten_link_obj)
+    short_link.add_to_times_of_redirected_field()
 
-    return redirect(
-        shorten_link_obj.original_url)
+    return redirect(short_link.original_url)

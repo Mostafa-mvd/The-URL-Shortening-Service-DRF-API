@@ -23,7 +23,7 @@ urlpatterns = [
     ),
     path(
         route="generate_otp/",
-        view=views.get_otp_code,
+        view=views.get_totp_code,
         name="generate_otp_code"
     ),
 ]

@@ -18,7 +18,7 @@ def generate_user_secret_key(user_id):
     secret_key_obj.save()
 
 
-def generate_otp_code(user_obj):
+def generate_totp_code(user_obj):
     secret_key_obj = users_models.UserSecretKey.objects.get(
         user=user_obj)
 
@@ -28,10 +28,10 @@ def generate_otp_code(user_obj):
     return otp_code
 
 
-def is_otp_code_valid(otp_code, user_obj):
+def is_totp_code_valid(totp_code, user_obj):
     secret_key_obj = users_models.UserSecretKey.objects.get(user=user_obj)
     totp = pyotp.TOTP(secret_key_obj.user_secret_key, interval=120)
-    is_valid = totp.verify(otp_code)
+    is_valid = totp.verify(totp_code)
 
     if not is_valid:
         return False

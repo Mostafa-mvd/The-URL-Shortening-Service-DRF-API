@@ -22,14 +22,14 @@ def register_user(request):
     return response
     
 
-def get_otp_code(request):
+def get_totp_code(request):
     if request.user.is_authenticated:
 
-        otp_code = users_utils.generate_otp_code(request.user)
+        totp_code = users_utils.generate_totp_code(request.user)
     
         return JsonResponse(
             data={
-                "otp_code": otp_code
+                "totp_code": totp_code
             }
         )
 

@@ -3,5 +3,5 @@ from . import models as shortener_links_models
 
 
 admin.site.register([
-    shortener_links_models.ShortLinkCreator
+    shortener_links_models.ShortLink
 ])

@@ -37,16 +37,16 @@ urlpatterns = [
         ),
     ),
     url(
-        r'^(?P<shorten_link>\w{8,18})/',
+        r'^(?P<token>[\w-]{8,18})/',
         include([
             url(
                 regex=r'^$',
                 view=views.redirect_to_original_url,
-                name="redirect_to_public_shorten_url"),
+                name="redirect_to_public_short_url"),
 
             url(regex=r'^(?P<otp_code>\d+)/$',
                 view=views.redirect_to_original_url,
-                name="redirect_to_private_shorten_url"),
+                name="redirect_to_private_short_url"),
         ])
     ),
 ]
