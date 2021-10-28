@@ -1,19 +1,29 @@
 from rest_framework import serializers
 from . import models as shorten_link_model
+from . import utils as shortening_link_utils
 
 
-class ShortenLinkSerializer(serializers.ModelSerializer):
+class ShorteningLinkSerializer(serializers.ModelSerializer):
+    
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
 
-    result_link = serializers.CharField(
-        source="shorten_link",
-        required=False
-    )
+        formated_created_time = instance.get_formated_created_time_str()
+        formated_expiration_time = instance.get_formated_expiration_time_str()
+        short_url = shortening_link_utils.concatenate_domain_with_path(
+            self.context['request'], instance.token)
+
+        data['expiration_time'] = formated_expiration_time
+        data['created_time'] = formated_created_time
+        data['short_url'] = short_url
+
+        return data
 
     class Meta:
-        model = shorten_link_model.ShortLinkCreator
+        model = shorten_link_model.ShortLink
         fields = [
             'original_url',
-            'result_link',
+            'token',
             'expiration_time',
-            'is_shorten_url_private',
+            'is_private',
         ]
