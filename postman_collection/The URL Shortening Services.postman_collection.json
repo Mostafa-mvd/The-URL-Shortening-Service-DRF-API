@@ -1,0 +1,473 @@
+{
+	"info": {
+		"_postman_id": "b59f5bc2-1d58-452e-9785-72bfae790133",
+		"name": "The URL Shortening Services",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Shortening Link",
+			"item": [
+				{
+					"name": "Public",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "original_url",
+									"value": "https://askubuntu.com/questions/796082/how-to-fix-inverted-laptop-webcam-video",
+									"type": "text"
+								},
+								{
+									"key": "shorten_link",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "expiration_time",
+									"value": "2021-12-19 20:11:59",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/shortening_link/create/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"shortening_link",
+								"create",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Public",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "original_url",
+											"value": "https://askubuntu.com/questions/796082/how-to-fix-inverted-laptop-webcam-video",
+											"type": "text"
+										},
+										{
+											"key": "result_link",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "expiration_time",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/shortening_link/create/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"shortening_link",
+										"create",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 28 Oct 2021 09:53:30 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.10.0"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "POST, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "117"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"shorten_url\": \"http://127.0.0.1:8000/pt56ucexbfkr\",\n    \"expiration_time\": \"2021-11-04 , 13:23:30\",\n    \"is_url_private\": false\n}"
+						},
+						{
+							"name": "Public",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "original_url",
+											"value": "https://askubuntu.com/questions/796082/how-to-fix-inverted-laptop-webcam-video",
+											"type": "text"
+										},
+										{
+											"key": "shorten_link",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "expiration_time",
+											"value": "2021-10-27 20:01:59",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/shortening_link/create/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"shortening_link",
+										"create",
+										""
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 28 Oct 2021 09:52:56 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.10.0"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "POST, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "63"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"expiration_time\": [\n        \"Expiration time must be bigger than now\"\n    ]\n}"
+						},
+						{
+							"name": "Public",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "original_url",
+											"value": "https://askubuntu.com/questions/796082/how-to-fix-inverted-laptop-webcam-video",
+											"type": "text"
+										},
+										{
+											"key": "shorten_link",
+											"value": "my-question",
+											"type": "text"
+										},
+										{
+											"key": "expiration_time",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/shortening_link/create/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"shortening_link",
+										"create",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 28 Oct 2021 09:55:29 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.10.0"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "POST, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "116"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"shorten_url\": \"http://127.0.0.1:8000/my-question\",\n    \"expiration_time\": \"2021-11-04 , 13:25:29\",\n    \"is_url_private\": false\n}"
+						},
+						{
+							"name": "Public",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "original_url",
+											"value": "https://askubuntu.com/questions/796082/how-to-fix-inverted-laptop-webcam-video",
+											"type": "text"
+										},
+										{
+											"key": "shorten_link",
+											"value": "my-stack-question",
+											"type": "text"
+										},
+										{
+											"key": "expiration_time",
+											"value": "2021-09-19 20:11:59",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/v1/shortening_link/create/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"v1",
+										"shortening_link",
+										"create",
+										""
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 28 Oct 2021 10:41:23 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.10.0"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "POST, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "140"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"shorten_link\": [\n        \"short link creator with this shorten link already exists.\"\n    ],\n    \"expiration_time\": [\n        \"Expiration time must be bigger than now\"\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Private",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "original_url",
+									"value": "https://askubuntu.com/questions/796082/how-to-fix-inverted-laptop-webcam-video",
+									"type": "text"
+								},
+								{
+									"key": "shorten_link",
+									"value": "m33dg45dffg3",
+									"type": "text"
+								},
+								{
+									"key": "expiration_time",
+									"value": "2021-10-29 14:14:14",
+									"type": "text"
+								},
+								{
+									"key": "is_private",
+									"value": "true",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/shortening_link/create/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"shortening_link",
+								"create",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
