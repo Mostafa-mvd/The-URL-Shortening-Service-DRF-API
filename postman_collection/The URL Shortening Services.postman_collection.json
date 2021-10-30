@@ -17,7 +17,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://127.0.0.1:8000/93ldk6ymn/846098/",
+									"raw": "http://127.0.0.1:8000/users-app/010566/",
 									"protocol": "http",
 									"host": [
 										"127",
@@ -27,8 +27,8 @@
 									],
 									"port": "8000",
 									"path": [
-										"93ldk6ymn",
-										"846098",
+										"users-app",
+										"010566",
 										""
 									]
 								}
@@ -139,7 +139,7 @@
 									"formdata": [
 										{
 											"key": "username",
-											"value": "Mostafa_mvd",
+											"value": "magnus_2020",
 											"type": "text"
 										},
 										{
@@ -178,7 +178,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjM1NjEzMjU0LCJqdGkiOiJlODBiYzdjZDdlMmM0MTg5ODg2YTFhOWM1MTVlNmY3OSIsInVzZXJfaWQiOjI2fQ.yHWi294oMbYFDputaSeW28gGraPKEeJTXRrXSFMr2oo",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjM1NjIwOTY4LCJqdGkiOiJiMjZjNTEyMjM0ZmI0N2U3YjQyYjhjMDdmYjU2NWJkYSIsInVzZXJfaWQiOjE0fQ.i_pIH07L34PFVv0BwzthutmCxRDGL654LhISkGkEcck",
 											"type": "string"
 										}
 									]
@@ -274,14 +274,13 @@
 									"formdata": [
 										{
 											"key": "original_url",
-											"value": "https://askubuntu.com/questions/796082/how-to-fix-inverted-laptop-webcam-video",
+											"value": "https://github.com/Mostafa-mvd/URL-Shortening-Service-Django/tree/main/short_link_project/users",
 											"type": "text"
 										},
 										{
-											"key": "shorten_link",
-											"value": "",
-											"type": "text",
-											"disabled": true
+											"key": "token",
+											"value": "users-app",
+											"type": "text"
 										},
 										{
 											"key": "expiration_time",
