@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
 from short_link_app import views
+import debug_toolbar
 
 
 urlpatterns = [
@@ -41,12 +42,13 @@ urlpatterns = [
         include([
             url(
                 regex=r'^$',
-                view=views.redirect_to_original_url,
-                name="redirect_to_public_short_url"),
+                view=views.redirector,
+                name="redirect_to_public_url"),
 
             url(regex=r'^(?P<otp_code>\d+)/$',
-                view=views.redirect_to_original_url,
-                name="redirect_to_private_short_url"),
+                view=views.redirector,
+                name="redirect_to_private_url"),
         ])
     ),
+    path('__debug__/', include(debug_toolbar.urls)),
 ]
