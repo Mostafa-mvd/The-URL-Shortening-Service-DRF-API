@@ -1,24 +1,24 @@
 from django.urls import path
+from dj_rest_auth.views import LoginView, LogoutView
 from . import views
-from rest_registration.api.views import login, logout
 
 app_name = "users_app"
 
 
 urlpatterns = [
     path(
-        route="register/",
-        view=views.register_user,
+        route="registration/",
+        view=views.UserRegistrationView.as_view(),
         name="register"
     ),
     path(
         route="login/",
-        view=login,
+        view=LoginView.as_view(),
         name="login"
     ),
     path(
         route="logout/",
-        view=logout,
+        view=LogoutView.as_view(),
         name="logout"
     ),
     path(

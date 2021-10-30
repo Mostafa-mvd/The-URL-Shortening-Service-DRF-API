@@ -1,25 +1,23 @@
-from rest_registration.api.views import register
-
 from rest_framework import status
 
-from django.views.decorators.http import require_http_methods
 from django.http.response import JsonResponse
+
+from dj_rest_auth.registration.views import RegisterView
 
 from users import utils as users_utils
 
 
-@require_http_methods(['GET', 'POST'])
-def register_user(request):
+class UserRegistrationView(RegisterView):
+    def create(self, request, *args, **kwargs):
+        response = super().create(request, *args, **kwargs)
 
-    response = register(request)
+        if (request.method == "POST" and
+                response.status_code == status.HTTP_201_CREATED):
 
-    if (request.method == "POST" and
-        response.status_code == status.HTTP_201_CREATED):
+            registered_user_pk = response.data["user"]['pk']
+            users_utils.generate_user_secret_key(registered_user_pk)
 
-        registered_user_id = response.data["id"]
-        users_utils.generate_user_secret_key(registered_user_id)
-        
-    return response
+        return response
     
 
 def get_totp_code(request):
@@ -29,7 +27,8 @@ def get_totp_code(request):
     
         return JsonResponse(
             data={
-                "totp_code": totp_code
+                "totp_code": totp_code,
+                "ttl in minutes": users_utils.get_otp_code_ttl() / 60
             }
         )
 
