@@ -27,6 +27,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
 
 # Application definition
 
@@ -38,15 +41,28 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 
     #3rd party
     'rest_framework',
-    'rest_registration',
+    'rest_framework.authtoken',
+    'dj_rest_auth',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'debug_toolbar',
 
     #local
     'short_link_app.apps.ShortLinkAppConfig',
     'users.apps.UsersConfig'
 ]
+
+# allauth 3rd party package configurations
+
+SITE_ID = 1
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+# middleware configurations
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -56,6 +72,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'short_link_project.urls'
@@ -71,10 +88,18 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request',
             ],
         },
     },
 ]
+
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
 
 WSGI_APPLICATION = 'short_link_project.wsgi.application'
 
@@ -112,6 +137,27 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# cache configuration
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient"
+        },
+        "KEY_PREFIX": "redirector"
+    }
+}
+
+# consider that OTP_TTL and CACHE_TTL's values have to be the same \
+# for accessing private url
+
+# Cache time to live is 10 minutes
+CACHE_TTL = 60 * 10
+
+# OTP code time to live is 10 minutes.
+OTP_TTL = 60 * 10
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
@@ -137,9 +183,12 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
-REST_REGISTRATION = {
-    'REGISTER_VERIFICATION_ENABLED': False,
-    'RESET_PASSWORD_VERIFICATION_ENABLED': False,
-    'REGISTER_EMAIL_VERIFICATION_ENABLED': False,
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
+    ),
 }
+
+REST_USE_JWT = True
+
+JWT_AUTH_COOKIE = 'the-shortening-url-service'
