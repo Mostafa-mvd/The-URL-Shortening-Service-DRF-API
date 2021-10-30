@@ -10,7 +10,7 @@ class ShorteningLinkSerializer(serializers.ModelSerializer):
 
         formated_created_time = instance.get_formated_created_time_str()
         formated_expiration_time = instance.get_formated_expiration_time_str()
-        short_url = shortening_link_utils.concatenate_domain_with_path(
+        short_url = shortening_link_utils.concatenate_base_url_with_end_point_path(
             self.context['request'], instance.token)
 
         data['expiration_time'] = formated_expiration_time
