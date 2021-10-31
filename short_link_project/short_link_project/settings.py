@@ -150,6 +150,40 @@ CACHES = {
     }
 }
 
+
+# logging configurations
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'debug_handler_file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'logs/debug.log',
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'short_link_app': {
+            'handlers': ['debug_handler_file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
+
+
 # consider that OTP_TTL and CACHE_TTL's values have to be the same \
 # for accessing private url
 
@@ -192,3 +226,9 @@ REST_FRAMEWORK = {
 REST_USE_JWT = True
 
 JWT_AUTH_COOKIE = 'the-shortening-url-service'
+
+
+# celery configurations
+
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
