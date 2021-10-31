@@ -9,7 +9,7 @@ from . import models as shorten_link_model
 
 def expire_at():
     now_time = now()
-    time_delta = timedelta(days=7)
+    time_delta = timedelta(minutes=30)
     expire_date = now_time + time_delta
     return expire_date
 
