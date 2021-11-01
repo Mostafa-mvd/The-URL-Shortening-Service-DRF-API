@@ -184,14 +184,11 @@ LOGGING = {
 }
 
 
-# consider that OTP_TTL and CACHE_TTL's values have to be the same \
-# for accessing private url
-
 # Cache time to live is 10 minutes
 CACHE_TTL = 60 * 10
 
 # OTP code time to live is 10 minutes.
-OTP_TTL = 60 * 10
+OTP_TTL = 60 * 5
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
