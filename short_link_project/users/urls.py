@@ -1,5 +1,8 @@
 from django.urls import path
+
 from dj_rest_auth.views import LoginView, LogoutView
+from dj_rest_auth.registration.views import RegisterView
+
 from . import views
 
 app_name = "users_app"
@@ -8,7 +11,7 @@ app_name = "users_app"
 urlpatterns = [
     path(
         route="registration/",
-        view=views.UserRegistrationView.as_view(),
+        view=RegisterView.as_view(),
         name="register"
     ),
     path(
@@ -23,7 +26,7 @@ urlpatterns = [
     ),
     path(
         route="generate_otp/",
-        view=views.get_totp_code,
+        view=views.GenerateOTPCode.as_view(),
         name="generate_otp_code"
     ),
 ]
