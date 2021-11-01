@@ -17,7 +17,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://127.0.0.1:8000/users-app/010566/",
+									"raw": "http://127.0.0.1:8000/8lt1g4ftszsrx7i/279222/",
 									"protocol": "http",
 									"host": [
 										"127",
@@ -27,8 +27,8 @@
 									],
 									"port": "8000",
 									"path": [
-										"users-app",
-										"010566",
+										"8lt1g4ftszsrx7i",
+										"279222",
 										""
 									]
 								}
@@ -41,8 +41,23 @@
 								"auth": {
 									"type": "noauth"
 								},
-								"method": "GET",
+								"method": "POST",
 								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "text"
+										}
+									]
+								},
 								"url": {
 									"raw": "http://127.0.0.1:8000/api/v1/users/generate_otp/",
 									"protocol": "http",
@@ -82,22 +97,22 @@
 									"formdata": [
 										{
 											"key": "username",
-											"value": "Mostafa_vm",
+											"value": "{{username}}",
 											"type": "text"
 										},
 										{
 											"key": "email",
-											"value": "mostafa9102vahdani@gmail.com",
+											"value": "{{email}}",
 											"type": "text"
 										},
 										{
 											"key": "password1",
-											"value": "SigmaZ2019",
+											"value": "{{password}}",
 											"type": "text"
 										},
 										{
 											"key": "password2",
-											"value": "SigmaZ2019",
+											"value": "{{password}}",
 											"type": "text"
 										}
 									]
@@ -139,12 +154,12 @@
 									"formdata": [
 										{
 											"key": "username",
-											"value": "magnus_2020",
+											"value": "{{username}}",
 											"type": "text"
 										},
 										{
 											"key": "password",
-											"value": "SigmaZ2019",
+											"value": "{{password}}",
 											"type": "text"
 										}
 									]
@@ -178,7 +193,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjM1NjIwOTY4LCJqdGkiOiJiMjZjNTEyMjM0ZmI0N2U3YjQyYjhjMDdmYjU2NWJkYSIsInVzZXJfaWQiOjE0fQ.i_pIH07L34PFVv0BwzthutmCxRDGL654LhISkGkEcck",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjM1Nzk3MTc4LCJqdGkiOiJlMTJiOTBhZjYyNDY0ZjVlOTNkMjkyZmI1NzI3NmExZiIsInVzZXJfaWQiOjE0fQ.Iw27GK2Hf6Og-ZHfPyVjbflCSOfyQn6NRbh2AQVVUY4",
 											"type": "string"
 										}
 									]
@@ -274,13 +289,14 @@
 									"formdata": [
 										{
 											"key": "original_url",
-											"value": "https://github.com/Mostafa-mvd/URL-Shortening-Service-Django/tree/main/short_link_project/users",
+											"value": "https://www.bennadel.com/blog/2434-http-status-codes-for-invalid-data-400-vs-422.htm",
 											"type": "text"
 										},
 										{
 											"key": "token",
 											"value": "users-app",
-											"type": "text"
+											"type": "text",
+											"disabled": true
 										},
 										{
 											"key": "expiration_time",
@@ -319,6 +335,20 @@
 					]
 				}
 			]
+		}
+	],
+	"variable": [
+		{
+			"key": "username",
+			"value": "mostafa.vahdani@gmail.com"
+		},
+		{
+			"key": "password",
+			"value": "SigmaZ2019"
+		},
+		{
+			"key": "email",
+			"value": "mostafa.vahdani@gmail.com"
 		}
 	]
 }
