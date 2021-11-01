@@ -54,13 +54,8 @@ def redirector(request, token, otp_code=None):
         token=token)
 
     if short_link.is_private:
-        if not request.user.is_authenticated:
-            return JsonResponse(data={
-                "OTP ERROR": "Your url is private , you have to login first",
-                })
-
         if otp_code:
-            if not users_utils.is_totp_code_valid(otp_code, request.user):
+            if not users_utils.is_totp_code_valid(otp_code):
                 return JsonResponse(data={
                     "OTP ERROR": "otp code is not valid"
                     })
