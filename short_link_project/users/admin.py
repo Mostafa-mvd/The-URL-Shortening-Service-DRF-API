@@ -3,5 +3,5 @@ from . import models
 
 
 admin.site.register([
-    models.UserSecretKey
+    models.UserOTPCode
 ])
